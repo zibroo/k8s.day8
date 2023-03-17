@@ -1,0 +1,10 @@
+# Install HELM on your local machine and connect it to your Kubernetes cluster. 
+# Search the official HELM chart repository for a chart that deploys a 
+# popular open-source application such as Wordpress or MySQL. 
+# Install the chart into your cluster using HELM and verify that the application is running as expected.
+#  Upgrade the chart to a newer version and verify that the upgrade is successful.
+# 
+# used commands:
+# helm repo add my-repo https://charts.bitnami.com/bitnami
+# helm install my-release my-repo/mysql --version 9.5.1
+# helm upgrade my-release my-repo/mysql --version 9.6.0

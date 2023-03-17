@@ -1,0 +1,7 @@
+# Run 2 different frontend applications exposed on port 80. 
+# Create Ingress with the following rules: path /first should route traffic to the first service 
+# and path /second to the second service.  
+# Create a DNS hostName and user ExternalDNS to expose your application via that domain name. 
+# Add TLS certification via Cert-Manager. 
+# Verify that your application exposed via domain name, 
+# has SSL certification and route traffic according to the rules.

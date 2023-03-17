@@ -1,0 +1,5 @@
+# Install External-dns into your Kubernetes cluster using HELM.
+# Create a new DNS zone on a public DNS provider such as AWS Route53 or Google Cloud DNS. 
+# Configure External-dns to use the DNS provider and the new zone. 
+# Create a Service resource in your cluster and annotate it with a DNS hostname that matches the new zone. 
+# Verify that External-dns has created a new DNS record for the Service in the public DNS provider.

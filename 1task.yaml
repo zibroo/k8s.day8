@@ -1,0 +1,119 @@
+# Create an Ingress resource in your Kubernetes cluster that routes traffic to two different services based on the requested path prefix.
+# Set up TLS termination on the Ingress. 
+# Test the Ingress using curl or a web browser to verify that traffic is properly routed to the correct service based on the requested path prefix.
+
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: ingress-secret
+# data:
+#   tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUY2ekNDQTlPZ0F3SUJBZ0lVUExqUVBrS3Q4eGl5bkRRTUl6d0tLYzgxbG44d0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dZUXhDekFKQmdOVkJBWVRBa3RITVEwd0N3WURWUVFJREFSamFIVnBNUkF3RGdZRFZRUUhEQWRpYVhObwphMlZyTVJFd0R3WURWUVFLREFoaGJuUmxZMmhwWnpFUE1BMEdBMVVFQ3d3R1pHVjJiM0J6TVE4d0RRWURWUVFECkRBWnBZbkpoYVcweEh6QWRCZ2txaGtpRzl3MEJDUUVXRUdsaWNtRnBiUzV5UUcxaGFXd3VjblV3SGhjTk1qTXcKTXpFMU1EWXdPRFV5V2hjTk1qUXdNekUwTURZd09EVXlXakNCaERFTE1Ba0dBMVVFQmhNQ1MwY3hEVEFMQmdOVgpCQWdNQkdOb2RXa3hFREFPQmdOVkJBY01CMkpwYzJoclpXc3hFVEFQQmdOVkJBb01DR0Z1ZEdWamFHbG5NUTh3CkRRWURWUVFMREFaa1pYWnZjSE14RHpBTkJnTlZCQU1NQm1saWNtRnBiVEVmTUIwR0NTcUdTSWIzRFFFSkFSWVEKYVdKeVlXbHRMbkpBYldGcGJDNXlkVENDQWlJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dJUEFEQ0NBZ29DZ2dJQgpBS2kyeEw3OFkxYmNmbUdyYlUrd1pMandwemdjTU9iYWphS1A3YTVVeFJUdUVSMkVoR2RMbWkzOEo5M2NBRGRSCmxBS0lLK3JUdWhqZld3eEZQVkdFc1pXMWI1b08rRE5oSjVQTkppMnZrUnpYZkI3RkxWYjdETTlQZVlXTkd6cG4KTHV4bU1EbkZsVUhzMURkK2pDdWhmckQxZnRheStuYWtXUzFETmZkN1RReXV0TjMrVGJjWkZGQVV5cUx1RVdZSApwcHlvd3UydkZXdkdFY0N5VnNZM1pFTkhEY2NXUG9lTGdob2toYkpnemFtRzJXdCtGeUhwM2dVOUVXc2dESVdECll4azFxaVhxckNDeEFwS1R6cDFoT0t5QXozdmdjVUVpeGdCTElacFUwdkdDUHFWKzUzOHFXTGxkcjBtaEI3a0QKK0NUaTVCbFYzWWtSeHYvLzNVRGR2eG5IS2d0UzlocTQwMTJIOWhwSSt2MVFzb2pJUFgyVUcyY3k2NEV4OTRWWgo3eTFmVmtmWDEzeCtSZTE1cVpka3huNC9LRmFQOGkwVEtXbmZjT3dPVlFVUjhHT3Zkc2JKRTJOUGRUU25XMlFFCk4weUgzdkF4R1JQUUlzazRQemtsc2ZGRDZSY0hjQmxSNXY1eDlabzFlU2JIUGU5dmNWNEtVaG1QWk8yemVWNmcKdEttTXd2T2k5SFg2TkdtSWE5ak5tNlRFM1V4WmZqNmlnOHY3R1h0QkpLa1dpT1VsMmRwYTQ4MUl4eG5ZYmxpZQozcWFiTTNoK1V4bW1vS0czRkc5UkdqSGFwcExEaEpiTUw2ZzdiYnpucDVsYkJvNFAwZ3ZJL3hocjVJV0hYb1dDCjNjYm1hcFRZWnc0Q3JoWlR2a2UyWHZLSm5QQzdJZVRVY0dFaGpuc1FIOEMvQWdNQkFBR2pVekJSTUIwR0ExVWQKRGdRV0JCU294K2grNjJNM3hkejZJZ20xV0ZsMjI2ckoxREFmQmdOVkhTTUVHREFXZ0JTb3graCs2Mk0zeGR6NgpJZ20xV0ZsMjI2ckoxREFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUNBUUNlCkdVVEkrR1BWbjBxOGYrS0h0MU1zd1EvclFseWxxRmszUzJIeXJxRTBocDJsV21kYllwNG1jVXlFWjhpbjRqQ1QKUmxramhTSCtvMzdjUjRTaUxockRSdERaYmlESmZpL283MUVBVTVPVmxSR0c5elhxVDhWTXN0L0dwbWlRNHB2dAoreTM2WVBYbkRYZ1Y3QzBUdkdxRmI5RHdGMVVnV2NneFErZjJXaFRYQ2lRMUM4ZW9UUjdGcVdNZzlHeHh4T0U1ClVhSVZGa01oOHJjaTdRT2ZvNzBRcm1RcGJrbXBUN0pRRlRKbGZ2eFQvR3hYS2t0Z2hxU2hPUVBrbS9ZWXdlU0QKS2liaXZZcXExZzU1TVVhTnJhTWVzT210RlZtSjBHNllpY3dmdU9MOG1hNWd4eHZPelpsZXN5eEpsMU1FWEErRgp5SXlCeGd2dnJtV3djQmZ1aGp0V3dEVW95N0hZVi9MK0MxUFBSUGhHLzNGcjNHcUpVcDBLM1J4Z0Fuc2NQSGF3CkswV01FMXJ4TG1tNzdtTXdFWWs1ZVhGVEpJZlF6VjdGUzNCODMrbVhxcXBoc1RVRjFmalZNdkFKcEd5dGlXLzMKbENIRE9PazZZNkFmdDZhU1pVb3dqS0QzaVY4YWhCUC92WlJqQWtvaTBOWnpMUWl1RlN3Rnh1N2U3dzFXci9nZwpmYnBWT1grbm1VWXdRbFRseXl0enczR0NjdmthdC9sV2RzZXBJbTRuVU1qb3ZVeWZKK0pva2Z4YURid0RCTkRwCmwzYnJJZ1RsMGNYaUlRZzJwb0RLZlV1Qkg3SHdIY0hwZkYxS2xDVmFRdkRXQmlpblltNyt0eFRsZjMvMEhqdjQKT05vOU40d1AzbXd0c2tPMnlYVDBjS1p5ZzFtSHY1MjVvQ2RnSXN2RUh3PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQ==
+#   tls.key: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUpRd0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQ1Mwd2dna3BBZ0VBQW9JQ0FRQ290c1MrL0dOVzNINWgKcTIxUHNHUzQ4S2M0SEREbTJvMmlqKzJ1Vk1VVTdoRWRoSVJuUzVvdC9DZmQzQUEzVVpRQ2lDdnEwN29ZMzFzTQpSVDFSaExHVnRXK2FEdmd6WVNlVHpTWXRyNUVjMTN3ZXhTMVcrd3pQVDNtRmpSczZaeTdzWmpBNXhaVkI3TlEzCmZvd3JvWDZ3OVg3V3N2cDJwRmt0UXpYM2UwME1yclRkL2syM0dSUlFGTXFpN2hGbUI2YWNxTUx0cnhWcnhoSEEKc2xiR04yUkRSdzNIRmo2SGk0SWFKSVd5WU0ycGh0bHJmaGNoNmQ0RlBSRnJJQXlGZzJNWk5hb2w2cXdnc1FLUwprODZkWVRpc2dNOTc0SEZCSXNZQVN5R2FWTkx4Z2o2bGZ1ZC9LbGk1WGE5Sm9RZTVBL2drNHVRWlZkMkpFY2IvCi85MUEzYjhaeHlvTFV2WWF1Tk5kaC9ZYVNQcjlVTEtJeUQxOWxCdG5NdXVCTWZlRldlOHRYMVpIMTlkOGZrWHQKZWFtWFpNWitQeWhXai9JdEV5bHAzM0RzRGxVRkVmQmpyM2JHeVJOalQzVTBwMXRrQkRkTWg5N3dNUmtUMENMSgpPRDg1SmJIeFEra1hCM0FaVWViK2NmV2FOWGtteHozdmIzRmVDbElaajJUdHMzbGVvTFNwak1Mem92UjEralJwCmlHdll6WnVreE4xTVdYNCtvb1BMK3hsN1FTU3BGb2psSmRuYVd1UE5TTWNaMkc1WW50Nm1tek40ZmxNWnBxQ2gKdHhSdlVSb3gycWFTdzRTV3pDK29PMjI4NTZlWld3YU9EOUlMeVA4WWErU0ZoMTZGZ3QzRzVtcVUyR2NPQXE0VwpVNzVIdGw3eWlaend1eUhrMUhCaElZNTdFQi9BdndJREFRQUJBb0lDQVFDb1g4YlloOCtvTjJOVm5CejZvNkxSCnd6SlBXQ3NocVVvaXk1czhHVk9hd01DS0FkK1ZxeWpTN2N6bnFKRDZwRXFmZ0VDOEdkT20wUG52dEFZdkhjdVIKQ2tLM3NHclo5QUxvaVp1cGlvYTdEdjdMUXFNdUpGd3paVEIxTFU3WUtYUDE3MEgvMWdWUWhzZUFIcVpMUU4vTQpRU1QxcGljNlVtakJPRXRha2s1aDh0V0VteS82SkdoV1IzbTN3dm5RSnFDTHhnekw0cWp4SnZvK29uemhVeFNYCjVBaUhBTmNrdFFFQmtDTngweFJOTk13MWIrQXNNMWNsU1QzaCtGa213ZW9ibGFnYU1TclpjVzZNMUVBbVpvbUYKOXdPYXNISzJ1N3A1UG9IcG9PL29vTUJlcjlqZTIyY3lqNkhKVEpFRmYwV2RvbVpjTm9waUtrQzg2aUJvaFNVYQpOOXAzRUNJRzQ4MVJCK0lCbU8vdjJxamVMKzZTNURaQTdUd1dyVStVS1MrQ3ZMb3AvNnpRWFIya0JQZThTQVlxCjZaL1FqUTcvQ0VtVVJTNHlZT2pOMnBOaWVYMmhkL3ZhYkpzWE9tbFZ6K1lLaEJiQWR5R1JyYWRvRkNCUWNoU1EKVGcwS1Z3anF0SUlYNTlndDRHcGFJamo2VjBUa1prTW1qUW8wUUQ4Q0VISnBYOXVDVnJ5V2x5TmpzRWdQd3RTbApNczN1Z0QrVGJGdWl4L00vanRaTFI2dlhGUVBOUXFaSUdYOU5YTmRza2lQRGEzdzNLOThiYmhIb1RCdzNUTXczCmVNRWRsbCtuc1Q4UVlDYUNIMFNSMERpS0ZYVkhPNlFEYThUN043WHRieXlTQlBVT0QxTEp1QWlpU3BUY0h1ZlMKd1oxUWNNMnFPRHdIZklheUorTHQ0UUtDQVFFQTREOVU2TVJWeWdWZFJuZlN1K1pqOFVaTXd5MFRCL0s0OWJwVwpzQ3NWSWtKRjRZRSttbEFmWTdzR2U0c0orWFpqRlBGOWlRMXFwZGhHRjZPcDJZMU55aU9kL3cycjlMRmYyK3NpCnNDNHlRWVFoVTZhS09DRmZ6dWsrWWxvYW1uNDFmaHp1YzdQUlk5dG1ncUQ2WW51YkNXMXFXTFdLbk9UNkNRMUEKU1dRM1FDaWlkUXV3TG1xQy9QOTV3SGkrb2EzUEZBUnZycXYrN1lOcDdnTGYwMkVPcHZnRWVjYlI5VjFRR2txcQpyNkQ1dTZFbmVwajAzZWdFTkc0MFA3Q3NlRVVOS0R4VFFRVG1rMmxYeXZUZDRGYVA3dEYvbFI5Sm8vR3RwN2hrCjFqUUZMNEZKRjVtTThpdG9Rbk90Sm5PNXA1VWd1L2NuRHNqYjdTVUZveVY0bjl5QWp3S0NBUUVBd0pwc2FicHcKMlBLY0tCSTd5QjFHQlN4VWVNYmVGbjlUY0QxRnlseFFYcDBvZ3QyMTlCSDEvTml6cXo5aitWaFdjTUUzcUhIaApqUFc0Y1IxdXJHM0NmQ2RTK2RXU1gvRWJSRVJkZGs2dnJPWW80ZWNCeE03Nld3QmwzSEVUbHpQZGRHc3JqaTh1Ci9OdGYyTEQwV2FZNWdpamh2ZVlpYUxBbUFuaHc0NmtieHlnUEhZMWQwY2k4eXI4aXJGSTJ6Syt3M0kwWWwwNHYKZE1CeU1jTllVRld4RXk5OEZMNjErT1ZiK3JlS2k2d3RmV1lNVVpyME1lOUV5VDZpV0c1bjRrVjA1bnhPYUtJMQowajBXbUtpTko2VGpQK0lGcnpORE5pM3ZXRHQ5a1AvbFlQaHphL2xnaHpVc1pVNklKZXlpUzJEaGNUWnFvSmZxCkRwdzZKOHVCS0laMDBRS0NBUUFsNzdEZW0vQmpkOXJheEFTYmt4TlBTdlJMaElHV3M2SkV0OXhZZTBGZEJWY3IKR2lGTUc4ZmpxRTBsYzFVaHBieUhXMzlBUTB2S2VMY0s0cjRtTnJoMVBPZEtzYlpvYytWaW4vbkRVbDFnSmdrNQpUSkJQaEozZnRDZkFuYnVvYlRlQmVVV0J2MmJwL01EdjBtbnBaVDNLTDM5eE9HMFZzOHIwNHhBQUduc2FXSVY3ClJabnRrRWxPb2Eyb09RVU85d2QwUEhma1ZlYVBxYzZ1M0QrZlUra1ZxQm1odkZmaXFZR1dvUkVWR3llRWJYUHYKVXBjQ1AzRU9xYUlmTURWTk4ybE5hRDh4WGJIZ09FOEkzN24xYk05MnVHeGIvdW9IV1NobW1sUTh4Sm9uK2pneQpUT0RDUzBPZEVsSzFrWmhUMkcrc1BOaVhzTFU3L2lwZytrTFkwSVhUQW9JQkFDM0NBbE8wR2E5UkpFeFkySjhZClpWUkJUZWhMeHVPdGFGTllHMGFTVy8yK2RLdHlwUkhSV3BHeG9pM2pKNHRMczIyaVdlakk5WDhadWJJVi9mODEKTEdsMnBqMzR3WWZOcmw2dnAweStNUHB3eS9Hdmdqb1J1bVQ0V1RyZ0dubG50d3M3a3VONnpqMEFtV3JQejUyawo0akRNS2FXR0VWS3gxclhyaTFackROQnA4ZjFoWXBLK2tDdlM4UmZqaUdWa3NDNFZ6MnZUQlc5RmNWdmxQd3dHCjc4VFJHVGVNZjRzY1lwZlVGelJMdVpyN0xaNE5wRXBnd0FUWHZwWW4xTUpySWZUSVA1Q1lTUlVqc2tTZWRycWUKYitiemVjby84WTNqcCtOY2J0Nk9EUjdXcUFWVS85dmZoQ2FsVzY4MjR1L3BtbVhkT2NQaGs1ZlpBZkFHWnk4TAprcUVDZ2dFQkFMN2FFR2NnSVdtSDJpcU5PcUlhWThCOHQwczdsTUZKUE1KL1FKRzNmSFMxUk5OWUM0VUo4N2hNClBQSWIraFBHSlR1emtjcDlFZ1FqSEhOOTVIUCsrUDRRRFlTaUE4cmExS2Y1bXBZYm04eTFvSVpNZjhRZ082WmMKbFlzSWdob3Y3TlMrR0ZMTEg1UXVsL3BpczNwSkJKMnhnR2hva2pvUjVDR1Y1dXZWSmpRTmx2N1ZYOHZGQkJEdgpLTGMwK0s5Nnh2c3VRM0p3WVFCRzhiMXVqWGNQRWZwN0FPRGhUR0NpTytSamZIL0ttSXlCUnFzZ05nd0lZZjVpCm1uQkphK3hxTklRNlpmbE40cTB1aUVObGo1b1JheGVDSFFtQ3ErcTFKQnNzdTBQVkx4VHpZc2VEL0xvMFRJVEwKQ3E5ZDg4WlI3aFF4YUxsbDljWnRRajE3SFdSVFR4OD0KLS0tLS1FTkQgUFJJVkFURSBLRVktLS0tLQo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment1
+  labels:
+    app: nginx1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx1
+  template:
+    metadata:
+      labels:
+        app: nginx1
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-nginxx
+spec:
+  selector:
+    app: nginx1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment2
+  labels:
+    app: apache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - name: apache
+        image: httpd:latest
+        command: ["/bin/sh", "-c", " mkdir /usr/local/apache2/htdocs/apache && cp  /usr/local/apache2/htdocs/index.html  /usr/local/apache2/htdocs/apache/  && . /usr/local/bin/httpd-foreground"] 
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-apachee
+spec:
+  selector:
+    app: apache
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+  annotations:
+    kubernetes.io/rewrite-target: /
+    # kubernetes.io/ingress.class: "nginx"
+spec:
+  # tls:
+  # - hosts: 
+  #   - nigmat-kriptoguru.tk
+  #   secretName: ingress-secret
+  rules:
+  - host: nigmat-kriptoguru.tk
+    http: 
+      paths: 
+      - path: /
+        pathType: Prefix
+        backend: 
+          service:
+            name: service-nginxx
+            port: 
+              number: 80
+      - path: /apache
+        pathType: Prefix
+        backend: 
+          service:
+            name: service-apachee
+            port: 
+              number: 80
+      - path: /apache2
+        pathType: Prefix
+        backend: 
+          service:
+            name: service-apachee2
+            port: 
+              number: 80
+---
